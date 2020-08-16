@@ -1,0 +1,22 @@
+.field {
+    height: 610px;
+    width: 610px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hole {
+    height: 200px;
+    width: 200px;
+    border: 1px solid black;
+    background-color: chartreuse;
+}
+
+.mole {
+    height: 200px;
+    width: 200px;
+    border: 1px solid black;
+    background-image: url("images/mole.png");
+    background-size: cover;
+}
+
