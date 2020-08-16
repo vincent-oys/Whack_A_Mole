@@ -11,27 +11,27 @@ further 1 (medium)
 The game will have 3 difficulties
 - easy:     -> basic (checked)
 - medium:   -> the mole will appear for a duration of time (random from 0.5 sec to 1) (checked)
-            -> add golden mole (appear 0.3sec) to the game
-            -> add baby mole (appear 1.5sec) to the game
+            -> add golden mole (appear 0.5sec) to the game (checked)
+            -> add baby mole (appear 2sec) to the game (checked)
 - hard:     -> add bomb to the game
 
 score calculation
-- hitting mole gives 1 point
-- hitting golden mole gives 10 points
-- hitting a baby mole deducts 5 points
+- hitting mole gives 1 point (checked)
+- hitting golden mole gives 10 points (checked)
+- hitting a baby mole deducts 5 points (checked)
 - hitting the bomb will instantly end the game
 
 
 for improvement
 1) stop appearing at the same spot (checked)
 2) the mole will appear for a random of time (checked)
-3)
-4)
+3) create a start button to start the game
+4) have a high score record
+5) have a event logging
 
 
-<!-- golden mole will appear twice in the game for 0.4sec and not clashing with baby and normal mole. can appear together
 
-babymole will appear 5 times randomly in the game for 2seconds and not clashing with golden and normal mole -->
+
 
 
 
