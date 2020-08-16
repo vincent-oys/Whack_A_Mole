@@ -10,7 +10,7 @@ basic (easy)
 further 1 (medium)
 The game will have 3 difficulties
 - easy:     -> basic (checked)
-- medium:   -> the mole will appear for a duration of time (random from 0.5 sec to 1)
+- medium:   -> the mole will appear for a duration of time (random from 0.5 sec to 1) (checked)
             -> add golden mole (appear 0.3sec) to the game
             -> add baby mole (appear 1.5sec) to the game
 - hard:     -> add bomb to the game
@@ -24,4 +24,15 @@ score calculation
 
 for improvement
 1) stop appearing at the same spot (checked)
-2) the mole will appear for a random of time
+2) the mole will appear for a random of time (checked)
+3)
+4)
+
+
+<!-- golden mole will appear twice in the game for 0.4sec and not clashing with baby and normal mole. can appear together
+
+babymole will appear 5 times randomly in the game for 2seconds and not clashing with golden and normal mole -->
+
+
+
+
