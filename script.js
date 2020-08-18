@@ -7,12 +7,15 @@ let score = document.querySelector("#score");
 let result = 0;
 let currentPosition;
 let currentTime = timer.textContent;
+
 let timeUp = false;
 let moleID = null;
 let timeID = null;
 let molePosition = null;
 let goldMolePosition = null;
 let babyMolePosition = null;
+let bombPosition = null;
+let endGame = false;
 
 let randomTime = function(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -34,7 +37,7 @@ let randomHole = function(hole) {
 let randomMole = function() {
     let time = randomTime(400, 1000);
     let moleHole = randomHole(hole);
-    moleHole.classList.remove("mole")
+    classRemove(moleHole);
     moleHole.classList.add("mole");
 
     console.log(time);
@@ -42,6 +45,7 @@ let randomMole = function() {
 
     setTimeout(() => {
         moleHole.classList.remove("mole");
+        molePosition = false;
         if (!timeUp) {
             randomMole();
         }
@@ -54,46 +58,58 @@ let randomMole = function() {
 // if the mole is being whacked, score +1
 // remove once because player cannot repeatedly click the area
 hole.forEach(id => {
-    id.addEventListener("mouseup", () => {
+    id.addEventListener("mousedown", () => {
         if (id.id === molePosition) {
             id.classList.remove("mole")
             result += 1;
-            score.textContent = result;
             molePosition = false;
-            return result
         } else if (id.id === goldMolePosition) {
             id.classList.remove("goldenmole")
-            result += 5;
-            score.textContent = result;
+            result += 10;
             goldMolePosition = false;
-            return result
         } else if (id.id === babyMolePosition) {
             id.classList.remove("babymole")
             result -= 5;
-            score.textContent = result;
             babyMolePosition = false;
-            return result
+        } else if (id.id === bombPosition) {
+            id.classList.remove("bomb")
+            endGame = true
+            bombPosition = false;
+            molePosition = false;
+            goldMolePosition = false;
+            babyMolePosition = false;
+            return endGame
         }
-        console.log(id.id)
+        score.textContent = result;
+        return result
     })
 })
 
 // end the game when the timer goes to zero
-let endGame = function() {
+let runGame = function() {
     currentTime--;
     timer.textContent = currentTime;
     let counterTime = parseInt(currentTime);
-    if (currentTime < 1) {
+    if (!endGame) {
+        if (currentTime < 1) {
+            clearInterval(timeID); 
+            clearInterval(moleID);
+            timeUp = true;
+        } else if (counterTime === firstTime || counterTime === secondTime) {
+            console.log("GOLDEN MOLE APPEAR!")
+            goldenMole()
+        } else if (counterTime === 10) {
+            console.log("BABY MOLE APPEAR!")
+            babyMole()
+        } else if (counterTime === 17) {
+            console.log("BOMB APPEAR!")
+            bomb()
+        }
+    } else {
         clearInterval(timeID); 
         clearInterval(moleID);
         timeUp = true;
-    } else if (counterTime === firstTime || counterTime === secondTime) {
-        console.log("GOLDEN MOLE APPEAR!")
-        goldenMole()
-    } else if (counterTime === 15) {
-        console.log("BABY MOLE APPEAR!")
-        babyMole()
-    }
+    }   
 }
 
 const firstTime = randomTime(Math.ceil(currentTime/2) + 1, currentTime - 1);
@@ -102,19 +118,19 @@ const secondTime = randomTime(2, Math.ceil(currentTime/2));
 console.log(secondTime);
 
 let start = function() {
+    timeUp = false;
     randomMole();
-    timeID = setInterval(endGame, 1000)
+    timeID = setInterval(runGame, 1000);
 }
 
 let goldenMole = function() {
     let goldMoleHole = randomHole(hole);
-
-    goldMoleHole.classList.remove("mole")
-    goldMoleHole.classList.remove("babymole")
+    classRemove(goldMoleHole)
     goldMoleHole.classList.add("goldenmole");
 
     setTimeout(() => {
         goldMoleHole.classList.remove("goldenmole");
+        goldMolePosition = false;
     }, 1000); 
 
     goldMolePosition = goldMoleHole.id;
@@ -122,17 +138,59 @@ let goldenMole = function() {
 
 let babyMole = function() {
     let babyMoleHole = randomHole(hole);
-
-    babyMoleHole.classList.remove("mole")
-    babyMoleHole.classList.remove("goldenmole")
+    classRemove(babyMoleHole)
     babyMoleHole.classList.add("babymole");
 
     setTimeout(() => {
         babyMoleHole.classList.remove("babymole");
+        babyMolePosition = false;
     }, 2000); 
 
     babyMolePosition = babyMoleHole.id;
 }
 
-start()
+let bomb = function() {
+    let bombHole = randomHole(hole);
+    classRemove(bombHole)
+    bombHole.classList.add("bomb");
+
+    setTimeout(() => {
+        bombHole.classList.remove("bomb");
+        bombPosition = false;
+    }, 3000); 
+
+    bombPosition = bombHole.id;
+}
+
+let classRemove = function(x) {
+    x.classList.remove("mole")
+    x.classList.remove("goldenmole")
+    x.classList.remove("babymole")
+    x.classList.remove("bomb")
+}
+
+let reset = function() {
+    document.querySelector("#score").textContent = "0";
+    timer.textContent = "20";
+    currentTime = 20;
+    counterTime = 20;
+    document.querySelector("#reset").removeEventListener("click", start, {once: true})
+    document.querySelector("#start").removeEventListener("click", start, {once: true})
+    document.querySelector("#start").addEventListener("click", start, {once: true})
+    document.querySelector("#reset").addEventListener("click", reset, {once: true})
+    clearInterval(timeID); 
+    clearInterval(moleID);
+    result = 0;
+    timeUp = true;
+    moleID = null;
+    timeID = null;
+    molePosition = null;
+    goldMolePosition = null;
+    babyMolePosition = null;
+    bombPosition = null;
+    endGame = false;
+}
+
+document.querySelector("#reset").addEventListener("click", reset, {once: true})
+document.querySelector("#start").addEventListener("click", start, {once: true})
 
