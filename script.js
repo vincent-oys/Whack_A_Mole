@@ -55,74 +55,6 @@ let randomMole = function() {
     molePosition = moleHole.id;
 }
 
-// if the mole is being whacked, score +1
-// remove once because player cannot repeatedly click the area
-hole.forEach(id => {
-    id.addEventListener("mousedown", () => {
-        if (id.id === molePosition) {
-            id.classList.remove("mole")
-            result += 1;
-            molePosition = false;
-        } else if (id.id === goldMolePosition) {
-            id.classList.remove("goldenmole")
-            result += 10;
-            goldMolePosition = false;
-        } else if (id.id === babyMolePosition) {
-            id.classList.remove("babymole")
-            result -= 5;
-            babyMolePosition = false;
-        } else if (id.id === bombPosition) {
-            id.classList.remove("bomb")
-            endGame = true
-            bombPosition = false;
-            molePosition = false;
-            goldMolePosition = false;
-            babyMolePosition = false;
-            return endGame
-        }
-        score.textContent = result;
-        return result
-    })
-})
-
-// end the game when the timer goes to zero
-let runGame = function() {
-    currentTime--;
-    timer.textContent = currentTime;
-    let counterTime = parseInt(currentTime);
-    if (!endGame) {
-        if (currentTime < 1) {
-            clearInterval(timeID); 
-            clearInterval(moleID);
-            timeUp = true;
-        } else if (counterTime === firstTime || counterTime === secondTime) {
-            console.log("GOLDEN MOLE APPEAR!")
-            goldenMole()
-        } else if (counterTime === 10) {
-            console.log("BABY MOLE APPEAR!")
-            babyMole()
-        } else if (counterTime === 17) {
-            console.log("BOMB APPEAR!")
-            bomb()
-        }
-    } else {
-        clearInterval(timeID); 
-        clearInterval(moleID);
-        timeUp = true;
-    }   
-}
-
-const firstTime = randomTime(Math.ceil(currentTime/2) + 1, currentTime - 1);
-console.log(firstTime)
-const secondTime = randomTime(2, Math.ceil(currentTime/2));
-console.log(secondTime);
-
-let start = function() {
-    timeUp = false;
-    randomMole();
-    timeID = setInterval(runGame, 1000);
-}
-
 let goldenMole = function() {
     let goldMoleHole = randomHole(hole);
     classRemove(goldMoleHole)
@@ -162,6 +94,76 @@ let bomb = function() {
     bombPosition = bombHole.id;
 }
 
+// if the mole is being whacked, score +1
+// remove once because player cannot repeatedly click the area
+hole.forEach(id => {
+    id.addEventListener("mousedown", () => {
+        if (id.id === molePosition) {
+            id.classList.remove("mole")
+            result += 1;
+            molePosition = false;
+        } else if (id.id === goldMolePosition) {
+            id.classList.remove("goldenmole")
+            result += 10;
+            goldMolePosition = false;
+        } else if (id.id === babyMolePosition) {
+            id.classList.remove("babymole")
+            result -= 5;
+            babyMolePosition = false;
+        } else if (id.id === bombPosition) {
+            id.classList.remove("bomb")
+            endGame = true
+            bombPosition = false;
+            molePosition = false;
+            goldMolePosition = false;
+            babyMolePosition = false;
+            alert("YOU HIT A BOMB! Your Score: " + result)
+            return endGame
+        }
+        score.textContent = result;
+        return result
+    })
+})
+
+// end the game when the timer goes to zero
+let runGame = function() {
+    currentTime--;
+    timer.textContent = currentTime;
+    let counterTime = parseInt(currentTime);
+    if (!endGame) {
+        if (currentTime < 1) {
+            clearInterval(timeID); 
+            clearInterval(moleID);
+            timeUp = true;
+            alert("Time's up! Your Score: " + result)
+        } else if (counterTime === firstTime || counterTime === secondTime) {
+            console.log("GOLDEN MOLE APPEAR!")
+            goldenMole()
+        } else if (counterTime === 10) {
+            console.log("BABY MOLE APPEAR!")
+            babyMole()
+        } else if (counterTime === 17) {
+            console.log("BOMB APPEAR!")
+            bomb()
+        }
+    } else {
+        clearInterval(timeID); 
+        clearInterval(moleID);
+        timeUp = true;
+    } 
+}
+
+const firstTime = randomTime(Math.ceil(currentTime/2) + 1, currentTime - 1);
+console.log(firstTime)
+const secondTime = randomTime(2, Math.ceil(currentTime/2));
+console.log(secondTime);
+
+let start = function() {
+    timeUp = false;
+    randomMole();
+    timeID = setInterval(runGame, 1000);
+}
+
 let classRemove = function(x) {
     x.classList.remove("mole")
     x.classList.remove("goldenmole")
@@ -193,4 +195,3 @@ let reset = function() {
 
 document.querySelector("#reset").addEventListener("click", reset, {once: true})
 document.querySelector("#start").addEventListener("click", start, {once: true})
-

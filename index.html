@@ -7,34 +7,68 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Whack A Mole</h1>
-    <div id="mainboard">
-        <div class="menu">
-            <h3>Score:</h3>
-            <h3 id="score">0</h3>
+    <div id="content">
+        <div id="game">
+            <h1>Whack A Mole</h1>
+            <div id="mainboard">
+                <div class="menu">
+                    <h3>Score:</h3>
+                    <h3 id="score">0</h3>
+                </div>
+                <div class="menu">
+                    <div id="start">START</div>
+                    <div id="reset">RESET</div>
+                </div>
+                <div class="menu">
+                    <h3>Timer:</h3>
+                    <h3 id="timer">20</h3>
+                </div>
+            </div>
+            
+            <div class="field">
+                <div class="hole" id="1"></div>
+                <div class="hole" id="2"></div>
+                <div class="hole" id="3"></div>
+                <div class="hole" id="4"></div>
+                <div class="hole" id="5"></div>
+                <div class="hole" id="6"></div>
+                <div class="hole" id="7"></div>
+                <div class="hole" id="8"></div>
+                <div class="hole" id="9"></div>
+            </div>
         </div>
-        <div class="menu">
-            <button id="start">START</button>
-            <button id="reset">RESET</button>
+     
+        <div id="instruction">
+            <h2>Instruction: </h2>
+            <div id="board">
+                <p>1. Player has 20 seconds to hit as many moles as possible.</p>
+                <p>2. Score System:</p>
+                <div id="object">
+                    <div class="objects">
+                        <div class="mole"></div>
+                        <p>Normal Mole gives 1 point</p>
+                    </div>
+                    <div class="objects">
+                        <div class="goldenmole"></div>
+                        <p>Golden Mole gives 10 points</p>
+                    </div>
+                    <div class="objects">
+                        <div class="babymole"></div>
+                        <p>Baby Mole deducts 5 points</p>
+                    </div>
+                    <div class="objects">
+                        <div class="bomb"></div>
+                        <p>Bomb Instantly end the game</p>
+                    </div>  
+                </div>  
+            </div>
         </div>
-        <div class="menu">
-            <h3>Timer:</h3>
-            <h3 id="timer">20</h3>
-        </div>
-    </div>
-    
-    <div class="field">
-        <div class="hole" id="1"></div>
-        <div class="hole" id="2"></div>
-        <div class="hole" id="3"></div>
-        <div class="hole" id="4"></div>
-        <div class="hole" id="5"></div>
-        <div class="hole" id="6"></div>
-        <div class="hole" id="7"></div>
-        <div class="hole" id="8"></div>
-        <div class="hole" id="9"></div>
     </div>
 
+    <footer>
+        <a href='https://www.freepik.com/vectors/nature'>Nature vector created by pikisuperstar - www.freepik.com</a>
+        <div>Icons made by <a href="https://www.flaticon.com/authors/payungkead" title="Payungkead">Payungkead</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
